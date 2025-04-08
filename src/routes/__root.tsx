@@ -20,6 +20,12 @@ export const Route = createRootRoute({
         <Link to="/service" className={linkStyle}>
           Service
         </Link>
+        <Link to="/map" className={linkStyle}>
+          Map
+        </Link>
+        <Link to="/excel" className={linkStyle}>
+          Excel
+        </Link>
       </div>
       <hr />
       <Outlet />

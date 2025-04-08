@@ -12,8 +12,10 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ServiceImport } from './routes/service'
+import { Route as MapImport } from './routes/map'
 import { Route as LoginImport } from './routes/login'
 import { Route as HomeImport } from './routes/home'
+import { Route as ExcelImport } from './routes/excel'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
@@ -22,6 +24,12 @@ import { Route as IndexImport } from './routes/index'
 const ServiceRoute = ServiceImport.update({
   id: '/service',
   path: '/service',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MapRoute = MapImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -34,6 +42,12 @@ const LoginRoute = LoginImport.update({
 const HomeRoute = HomeImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExcelRoute = ExcelImport.update({
+  id: '/excel',
+  path: '/excel',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -67,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/excel': {
+      id: '/excel'
+      path: '/excel'
+      fullPath: '/excel'
+      preLoaderRoute: typeof ExcelImport
+      parentRoute: typeof rootRoute
+    }
     '/home': {
       id: '/home'
       path: '/home'
@@ -79,6 +100,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapImport
       parentRoute: typeof rootRoute
     }
     '/service': {
@@ -96,16 +124,20 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/excel': typeof ExcelRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/service': typeof ServiceRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/excel': typeof ExcelRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/service': typeof ServiceRoute
 }
 
@@ -113,33 +145,54 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/excel': typeof ExcelRoute
   '/home': typeof HomeRoute
   '/login': typeof LoginRoute
+  '/map': typeof MapRoute
   '/service': typeof ServiceRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/home' | '/login' | '/service'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/excel'
+    | '/home'
+    | '/login'
+    | '/map'
+    | '/service'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/home' | '/login' | '/service'
-  id: '__root__' | '/' | '/about' | '/home' | '/login' | '/service'
+  to: '/' | '/about' | '/excel' | '/home' | '/login' | '/map' | '/service'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/excel'
+    | '/home'
+    | '/login'
+    | '/map'
+    | '/service'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ExcelRoute: typeof ExcelRoute
   HomeRoute: typeof HomeRoute
   LoginRoute: typeof LoginRoute
+  MapRoute: typeof MapRoute
   ServiceRoute: typeof ServiceRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ExcelRoute: ExcelRoute,
   HomeRoute: HomeRoute,
   LoginRoute: LoginRoute,
+  MapRoute: MapRoute,
   ServiceRoute: ServiceRoute,
 }
 
@@ -155,8 +208,10 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/excel",
         "/home",
         "/login",
+        "/map",
         "/service"
       ]
     },
@@ -166,11 +221,17 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/excel": {
+      "filePath": "excel.tsx"
+    },
     "/home": {
       "filePath": "home.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/map": {
+      "filePath": "map.tsx"
     },
     "/service": {
       "filePath": "service.tsx"
